@@ -11,7 +11,11 @@ app.get('/', function(req, res) {
 
 app.post('/endpoint', function(req, res) {
   io.emit('chat message', JSON.stringify(req.body))
-  res.send()
+  if(req.body && req.body.challenge) {
+    res.send(req.body.challenge)
+  } else {
+    res.send()
+  }
 })
 
 io.on('connection', function(socket) {
